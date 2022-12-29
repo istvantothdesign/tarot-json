@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url("/assets/Background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@mixin flex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+.deck {
+  @include flex(column, center, center);
+  width: 100%;
+}
+.deck-row {
+  @include flex(row, center, center);
+  max-width: 1200px;
+  margin: 0 0 -120px -80px;
+  .card {
+    // max-width: 200px;
+    margin-right: -80px;
+    img {
+      width: 100%;
+    }
+  }
+}
+.deck-row:nth-child(even) {
+  transform: translateX(35px);
+}
+
+.deck-row:nth-child(1) {
+  z-index: 1;
+}
+.deck-row:nth-child(2) {
+  z-index: 2;
+}
+.deck-row:nth-child(3) {
+  z-index: 3;
+}
+.deck-row:nth-child(4) {
+  z-index: 4;
+}
+
+.picked-cards {
+  width: 100%;
+  @include flex(row, center, center);
+  padding: 80px 0;
+}
+.picked-cards-wrp {
+  max-width: 1000px;
+}
+.picked-card {
+  img {
+    width: 200px;
+  }
+}
