@@ -18,6 +18,7 @@ const exit = document.querySelector(".exit");
 const cardName = document.querySelector(".desc-h1");
 const body = document.querySelector("body");
 const shuffleBtn = document.querySelector(".new-shuffle");
+const saveBtn = document.querySelector(".save-layout");
 
 let pickedCards = [];
 
@@ -109,6 +110,12 @@ function reload() {
   location.reload();
 }
 
+function saveLayout() {
+  console.log(pickedCards);
+
+  // Add the pickedCards array to the browser's memory. When you load the you can create new html elements like you've done in the randomCard() based on the numbers in the array
+}
+
 //Event listeners
 deckCard.forEach((card) => {
   card.addEventListener("click", randomCard);
@@ -118,3 +125,4 @@ exit.addEventListener("click", closePopup);
 exitBtn.addEventListener("click", closePopup);
 
 shuffleBtn.addEventListener("click", reload);
+saveBtn.addEventListener("click", saveLayout);
