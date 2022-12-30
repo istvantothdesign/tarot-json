@@ -111,9 +111,21 @@ function reload() {
 }
 
 function saveLayout() {
-  console.log(pickedCards);
+  layoutObj = {
+    name: "yolo",
+    cards: pickedCards,
+  };
 
-  // Add the pickedCards array to the browser's memory. When you load the you can create new html elements like you've done in the randomCard() based on the numbers in the array
+  let localLibrary;
+
+  if (localStorage.getItem("library") === null) {
+    localLibrary = [];
+  } else {
+    localLibrary = JSON.parse(localStorage.getItem("library"));
+  }
+
+  localLibrary.push(layoutObj);
+  localStorage.setItem("library", JSON.stringify(localLibrary));
 }
 
 //Event listeners
@@ -126,3 +138,5 @@ exitBtn.addEventListener("click", closePopup);
 
 shuffleBtn.addEventListener("click", reload);
 saveBtn.addEventListener("click", saveLayout);
+
+// localStorage.clear();
