@@ -7,18 +7,51 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="./style/style.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/xrg6byy.css" />
+
     <title>Tarot Game</title>
   </head>
   <body>
     <main>
+      <!-- Nav  -->
+      <nav class="nav">
+        <div class="nav-wrp">
+          <div class="logo">
+            <img src="./assets/logo.svg" alt="" />
+          </div>
+          <div class="line"></div>
+          <div class="buttons">
+            <button class="button primary">New Shuffle</button>
+            <button class="button secondary">Save Layout</button>
+            <button class="button secondary">Load Layout</button>
+          </div>
+          <div class="line"></div>
+          <div class="icons">
+            <img
+              src="./assets/sound-off.svg"
+              alt="Sound off icon."
+              class="sound-off"
+            />
+            <img
+              src="./assets/sound-on.svg"
+              alt="Sound on icon."
+              class="sound-on"
+            />
+          </div>
+        </div>
+      </nav>
+
+      <!-- Picked cards -->
       <section class="picked-cards">
         <div class="picked-cards-wrp">
-          <div class="picked-card">
+          <!-- Placeholder card -->
+          <!-- <div class="picked-card card">
             <img src="./cards/c01.jpg" alt="" />
-          </div>
+          </div> -->
         </div>
       </section>
 
+      <!-- Deck -->
       <section class="deck">
         <div class="deck-row">
           <div class="card">
@@ -262,6 +295,60 @@
           </div>
           <div class="card">
             <img src="./cards/back.png" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Popup -->
+      <section class="popup d-none">
+        <div class="exit">
+          <img src="./assets/close-icon.svg" alt="" />
+        </div>
+        <div class="popup-ctn">
+          <div class="popup-wrp">
+            <div class="popup-wrp__card">
+              <div class="picked-card card">
+                <img src="./cards/c01.jpg" alt="" />
+              </div>
+              <button class="button primary">Back to Layout</button>
+            </div>
+            <div class="popup-wrp__desc">
+              <h1 class="desc-h1">Ace of Cups</h1>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
+                nam.
+              </p>
+              <h2 class="desc-h2">Description</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Corporis dolorem culpa tempora cum quia, distinctio voluptate
+                voluptatem explicabo, voluptatum qui doloribus nobis aliquid
+                nostrum possimus vitae nisi dicta rerum eius.
+              </p>
+              <h2 class="desc-h2">Meaning</h2>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam
+                debitis corrupti nesciunt tenetur, aliquid enim repellat neque
+                eaque. Incidunt fugit architecto nesciunt, reprehenderit numquam
+                veniam aliquam veritatis officiis quos magnam corrupti esse nam
+                beatae tempore at, quia quidem culpa tempora ab dignissimos!
+                Labore autem dolor voluptas totam, quis assumenda dignissimos
+                impedit voluptatum, aliquid eveniet suscipit sapiente sequi
+                reprehenderit nulla dicta deserunt vel rem maiores nam. Modi
+                corporis eum quo consequatur!
+              </p>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam
+                debitis corrupti nesciunt tenetur, aliquid enim repellat neque
+                eaque. Incidunt fugit architecto nesciunt, reprehenderit numquam
+                veniam aliquam veritatis officiis quos magnam corrupti esse nam
+                beatae tempore at, quia quidem culpa tempora ab dignissimos!
+                Labore autem dolor voluptas totam, quis assumenda dignissimos
+                impedit voluptatum, aliquid eveniet suscipit sapiente sequi
+                reprehenderit nulla dicta deserunt vel rem maiores nam. Modi
+                corporis eum quo consequatur!
+              </p>
+            </div>
           </div>
         </div>
       </section>
