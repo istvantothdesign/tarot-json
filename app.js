@@ -7,8 +7,6 @@ if (req.status == 200) {
   cards = JSON.parse(req.responseText);
 }
 
-cardsCopy = structuredClone(cards);
-
 // Variables
 const deckCard = document.querySelectorAll(".deck-row .card");
 const pickedCardsWrp = document.querySelector(".picked-cards-wrp");
@@ -33,9 +31,11 @@ let pickedCards = [];
 function randomCard() {
   //   cardDrawCount -= 1;
 
-  const randonNr = Math.floor(Math.random() * cards.cards.length + 1);
+  // cardsCopy = structuredClone(cards);
+
+  let randomNr = Math.floor(Math.random() * cards.cards.length + 1);
   const reverse = Math.random() > 0.5;
-  console.log(randonNr);
+  console.log(randomNr);
 
   const cardDiv = document.createElement("div");
   const card = document.createElement("img");
@@ -45,7 +45,19 @@ function randomCard() {
   cardDiv.classList.add("picked-card");
   cardDiv.classList.add("card");
   cardDiv.appendChild(card);
-  card.src = `./cards/${cards.cards[randonNr].img}`;
+
+  pickedCards.forEach((card) => {
+    if (card === randomNr) {
+      console.log(card);
+      while (randomNr === card) {
+        randomNr = Math.floor(Math.random() * cards.cards.length + 1);
+      }
+    }
+  });
+
+  pickedCards.push(randomNr);
+
+  card.src = `./cards/${cards.cards[randomNr].img}`;
 
   if (reverse) {
     cardDiv.classList.add("reversed");
@@ -58,18 +70,16 @@ function randomCard() {
   }
 
   pickedCardsWrp.appendChild(cardDiv);
-  cardDiv.setAttribute("id", `${randonNr}`);
+  cardDiv.setAttribute("id", `${randomNr}`);
 
-  popup.classList.remove("d-none");
-  popupCard.src = `./cards/${cards.cards[randonNr].img}`;
-  cardName.innerHTML = `${cards.cards[randonNr].name}`;
-
-  let index = randonNr;
-  cards.cards.splice(index, 1);
+  // POPUP
+  // popup.classList.remove("d-none");
+  // popupCard.src = `./cards/${cards.cards[randomNr].img}`;
+  // cardName.innerHTML = `${cards.cards[randomNr].name}`;
 
   // Local storage
 
-  //   pickedCards.push(randonNr);
+  //   pickedCards.push(randomNr);
   //   localStorage.setItem("picked-cards", JSON.stringify(pickedCards));
   //   //   let storedCards = JSON.parse(localStorage.getItem("picked-cards"));
 
@@ -77,23 +87,46 @@ function randomCard() {
 
   //   const newArrayItem = pickedCards.length - 1;
 
-  cardDiv.addEventListener("click", function () {
-    console.log(this.id);
-    popup.classList.remove("d-none");
+  const pickedCard = document.querySelectorAll(".picked-card");
 
-    popupCard.src = `./cards/${cardsCopy.cards[this.id + 1].img}`;
-    cardName.innerHTML = `${cardsCopy.cards[this.id + 1].name}`;
+  pickedCard.forEach((card) => {
+    card.addEventListener("click", function () {
+      console.log(card.id);
+      popup.classList.remove("d-none");
 
-    if (reverse) {
-      cardDiv.classList.add("reversed");
-      popupCard.classList.add("reversed");
-      cardName.classList.add("reversed-text");
-    } else {
-      cardDiv.classList.remove("reversed");
-      popupCard.classList.remove("reversed");
-      cardName.classList.remove("reversed-text");
-    }
+      popupCard.src = `./cards/${cards.cards[card.id].img}`;
+      cardName.innerHTML = `${cards.cards[card.id].name}`;
+
+      if (card.classList.contains("reversed")) {
+        popupCard.classList.add("reversed");
+        cardName.classList.add("reversed-text");
+      } else {
+        popupCard.classList.remove("reversed");
+        cardName.classList.remove("reversed-text");
+      }
+    });
   });
+
+  // let index = randomNr;
+  // cards.cards.splice(index, 1);
+
+  //   cardDiv.addEventListener("click", function () {
+  //     console.log(this.id);
+  //     popup.classList.remove("d-none");
+
+  //     popupCard.src = `./cards/${cardsCopy.cards[this.id + 1].img}`;
+  //     cardName.innerHTML = `${cardsCopy.cards[this.id + 1].name}`;
+
+  //     if (reverse) {
+  //       cardDiv.classList.add("reversed");
+  //       popupCard.classList.add("reversed");
+  //       cardName.classList.add("reversed-text");
+  //     } else {
+  //       cardDiv.classList.remove("reversed");
+  //       popupCard.classList.remove("reversed");
+  //       cardName.classList.remove("reversed-text");
+  //     }
+  //   });
 }
 
 function closePopup() {
