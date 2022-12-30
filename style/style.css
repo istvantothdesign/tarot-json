@@ -191,15 +191,17 @@ nav {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 80px 0;
+  padding: 40px 0;
 }
 
 .picked-cards-wrp {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  max-width: 1000px;
+  max-width: 1200px;
+  padding: 40px;
+  overflow-y: hidden;
 }
 
 .picked-card {
@@ -223,6 +225,7 @@ nav {
   justify-content: flex-start;
   align-items: center;
   gap: 60px;
+  overflow-y: scroll;
 }
 .popup .exit {
   width: 100%;

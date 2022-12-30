@@ -16,36 +16,28 @@ const popupCard = document.querySelector(".popup-wrp__card .card img");
 const exitBtn = document.querySelector(".popup-wrp__card button");
 const exit = document.querySelector(".exit");
 const cardName = document.querySelector(".desc-h1");
+const body = document.querySelector("body");
+const shuffleBtn = document.querySelector(".new-shuffle");
 
 let pickedCards = [];
-// let cardDrawCount = 77;
-
-// const cardName = document.querySelector(".card-name");
-// const cardImg = document.querySelector(".card-img");
-// const button = document.querySelector(".button");
-
-// console.log(cards.cards);
-// randomCard();
 
 // Functions
 function randomCard() {
-  //   cardDrawCount -= 1;
-
-  // cardsCopy = structuredClone(cards);
-
+  // Variables
   let randomNr = Math.floor(Math.random() * cards.cards.length + 1);
   const reverse = Math.random() > 0.5;
-  console.log(randomNr);
-
   const cardDiv = document.createElement("div");
   const card = document.createElement("img");
 
+  // Removing last card
   secondRow.removeChild(secondRow.lastElementChild);
 
+  // Creating cards
   cardDiv.classList.add("picked-card");
   cardDiv.classList.add("card");
   cardDiv.appendChild(card);
 
+  // Avoiding duplication
   pickedCards.forEach((card) => {
     if (card === randomNr) {
       console.log(card);
@@ -57,8 +49,10 @@ function randomCard() {
 
   pickedCards.push(randomNr);
 
+  // Chaging card image
   card.src = `./cards/${cards.cards[randomNr].img}`;
 
+  // Dealing with reversed cards
   if (reverse) {
     cardDiv.classList.add("reversed");
     popupCard.classList.add("reversed");
@@ -69,23 +63,15 @@ function randomCard() {
     cardName.classList.remove("reversed-text");
   }
 
+  // Adding card to wrapper
   pickedCardsWrp.appendChild(cardDiv);
   cardDiv.setAttribute("id", `${randomNr}`);
 
   // POPUP
-  // popup.classList.remove("d-none");
-  // popupCard.src = `./cards/${cards.cards[randomNr].img}`;
-  // cardName.innerHTML = `${cards.cards[randomNr].name}`;
-
-  // Local storage
-
-  //   pickedCards.push(randomNr);
-  //   localStorage.setItem("picked-cards", JSON.stringify(pickedCards));
-  //   //   let storedCards = JSON.parse(localStorage.getItem("picked-cards"));
-
-  //   //...
-
-  //   const newArrayItem = pickedCards.length - 1;
+  popup.classList.remove("d-none");
+  popupCard.src = `./cards/${cards.cards[randomNr].img}`;
+  cardName.innerHTML = `${cards.cards[randomNr].name}`;
+  body.style.overflow = "hidden";
 
   const pickedCard = document.querySelectorAll(".picked-card");
 
@@ -93,6 +79,7 @@ function randomCard() {
     card.addEventListener("click", function () {
       console.log(card.id);
       popup.classList.remove("d-none");
+      body.style.overflow = "hidden";
 
       popupCard.src = `./cards/${cards.cards[card.id].img}`;
       cardName.innerHTML = `${cards.cards[card.id].name}`;
@@ -106,36 +93,20 @@ function randomCard() {
       }
     });
   });
-
-  // let index = randomNr;
-  // cards.cards.splice(index, 1);
-
-  //   cardDiv.addEventListener("click", function () {
-  //     console.log(this.id);
-  //     popup.classList.remove("d-none");
-
-  //     popupCard.src = `./cards/${cardsCopy.cards[this.id + 1].img}`;
-  //     cardName.innerHTML = `${cardsCopy.cards[this.id + 1].name}`;
-
-  //     if (reverse) {
-  //       cardDiv.classList.add("reversed");
-  //       popupCard.classList.add("reversed");
-  //       cardName.classList.add("reversed-text");
-  //     } else {
-  //       cardDiv.classList.remove("reversed");
-  //       popupCard.classList.remove("reversed");
-  //       cardName.classList.remove("reversed-text");
-  //     }
-  //   });
 }
 
 function closePopup() {
   popup.classList.add("d-none");
+  body.style.overflow = "";
 }
 
 function openPopup() {
   console.log("hey");
   popup.classList.remove("d-none");
+}
+
+function reload() {
+  location.reload();
 }
 
 //Event listeners
@@ -146,15 +117,4 @@ deckCard.forEach((card) => {
 exit.addEventListener("click", closePopup);
 exitBtn.addEventListener("click", closePopup);
 
-// pickedCards.forEach((asd) => {
-//   asd.addEventListener("click", openPopup);
-// });
-
-// for (let i = 0; i < pickedCards.length; i++) {
-//   (function (index) {
-//     pickedCards[index].addEventListener("click", function () {
-//       console.log("you clicked region number " + index);
-//     });
-//   })(i);
-// }
-// deckCard.addEventListener("click", randomCard);
+shuffleBtn.addEventListener("click", reload);

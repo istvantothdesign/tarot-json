@@ -53,6 +53,7 @@ html {
 
 body {
   font-family: "clarika";
+  // overflow-x: hidden;
 }
 button {
   font-family: "clarika-md";
@@ -180,11 +181,13 @@ nav {
 .picked-cards {
   width: 100%;
   @include flex(row, center, center);
-  padding: 80px 0;
+  padding: 40px 0;
 }
 .picked-cards-wrp {
-  @include flex(row, center, center);
-  max-width: 1000px;
+  @include flex(row, flex-start, center);
+  max-width: 1200px;
+  padding: 40px;
+  overflow-y: hidden;
 }
 .picked-card {
   margin: 0px 20px;
@@ -205,6 +208,8 @@ nav {
   padding: 60px;
   @include flex(column, flex-start, center);
   gap: 60px;
+  overflow-y: scroll;
+
   .exit {
     width: 100%;
     max-width: 1000px;
