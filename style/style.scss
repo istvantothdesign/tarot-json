@@ -197,6 +197,17 @@ nav {
 }
 
 // Popup
+
+.exit {
+  width: 100%;
+  max-width: 1000px;
+  cursor: pointer;
+  @include flex(row, flex-end, center);
+  img {
+    width: 33px;
+    height: auto;
+  }
+}
 .popup {
   background: black;
   height: 100%;
@@ -210,12 +221,6 @@ nav {
   gap: 60px;
   overflow-y: scroll;
 
-  .exit {
-    width: 100%;
-    max-width: 1000px;
-    cursor: pointer;
-    @include flex(row, flex-end, center);
-  }
   .popup-ctn {
     @include flex(column, center, center);
     width: 100%;
@@ -240,10 +245,126 @@ nav {
   display: none !important;
 }
 
+.d-none {
+  display: none !important;
+}
+
 .reversed {
   transform: rotate(180deg);
 }
 
 .reversed-text::after {
   content: " (Reversed)";
+}
+
+// Save popup
+.save-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.673);
+  backdrop-filter: blur(10px);
+
+  @include flex(column, center, center);
+
+  .save-popup__ctn {
+    @include flex(column, center, flex-start);
+    gap: 30px;
+    background: white;
+    max-width: 400px;
+    padding: 25px 50px;
+    border-radius: 10px;
+    filter: drop-shadow(0px 0px 15px rgba(255, 255, 255, 0.322));
+
+    .save-popup__wrp {
+      @include flex(column, center, center);
+      gap: 20px;
+
+      h2 {
+        margin: 0;
+      }
+      .input-text {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.primary.black {
+  background: black;
+  color: white;
+}
+
+.secondary.black {
+  color: black;
+  border: 1.5px solid black;
+}
+
+.exit.black {
+  filter: invert(100);
+}
+
+input {
+  font-size: 18px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+// Load popup
+.load-popup-buttons {
+  @include flex(row, space-between, center);
+  width: 100%;
+  padding: 0;
+  .exit {
+    width: auto;
+  }
+}
+
+.save-popup__ctn.load {
+  width: 100%;
+  max-width: 1400px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.save-popup__wrp.load {
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.load-cards-wrp {
+  display: block;
+
+  columns: 2;
+
+  &::before {
+    content: " ";
+    display: table;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: 2;
+    grid-row-end: 2;
+  }
+  &::after {
+    clear: both;
+    content: " ";
+    display: table;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-column-end: 2;
+    grid-row-end: 2;
+  }
+  .load-card {
+    background: grey;
+    width: 230px;
+  }
+}
+
+.save-popup.load {
+  align-items: flex-start;
+  justify-content: flex-start;
 }
