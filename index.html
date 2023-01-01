@@ -23,7 +23,7 @@
           <div class="buttons">
             <button class="button primary new-shuffle">New Shuffle</button>
             <button class="button secondary save-layout">Save Layout</button>
-            <button class="button secondary">Load Layout</button>
+            <button class="button secondary load-layout">Load Layout</button>
           </div>
           <div class="line"></div>
           <div class="icons">
@@ -301,7 +301,7 @@
 
       <!-- Card Popup -->
       <section class="popup d-none">
-        <div class="exit">
+        <div class="exit close">
           <img src="./assets/close-icon.svg" alt="" />
         </div>
         <div class="popup-ctn">
@@ -310,7 +310,7 @@
               <div class="picked-card card">
                 <img src="./cards/c01.jpg" alt="" />
               </div>
-              <button class="button primary">Back to Layout</button>
+              <button class="button primary close">Back to Layout</button>
             </div>
             <div class="popup-wrp__desc">
               <h1 class="desc-h1">Ace of Cups</h1>
@@ -361,14 +361,14 @@
             <input class="input-text" type="text" />
             <div class="buttons">
               <button class="button primary black">Save Layout</button>
-              <button class="button secondary black">Cancel</button>
+              <button class="button secondary black close">Cancel</button>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Load popup -->
-      <section class="save-popup load">
+      <section class="save-popup load d-none">
         <div class="save-popup__ctn load">
           <div class="save-popup__wrp load">
             <div class="load-popup-buttons">
@@ -376,7 +376,7 @@
                 <button class="button primary black">Load layout</button>
                 <button class="button secondary black">Delete layout</button>
               </div>
-              <div class="exit black">
+              <div class="exit black close">
                 <img src="./assets/close-icon.svg" alt="" />
               </div>
             </div>

@@ -14,11 +14,20 @@ const secondRow = document.querySelectorAll(".deck-row")[1];
 const popup = document.querySelector(".popup");
 const popupCard = document.querySelector(".popup-wrp__card .card img");
 const exitBtn = document.querySelector(".popup-wrp__card button");
-const exit = document.querySelector(".exit");
+const exit = document.querySelectorAll(".close");
 const cardName = document.querySelector(".desc-h1");
 const body = document.querySelector("body");
 const shuffleBtn = document.querySelector(".new-shuffle");
+
 const saveBtn = document.querySelector(".save-layout");
+const saveLayoutBtn = document.querySelector(".save-popup .button.primary");
+const loadBtn = document.querySelector(".load-layout");
+const loadLayoutBtn = document.querySelector(
+  ".save-popup.load .button.primary"
+);
+const savePopup = document.querySelector(".save-popup");
+const loadPopup = document.querySelector(".save-popup.load");
+const loadCardWrp = document.querySelector(".load-card-wrp");
 
 let pickedCards = [];
 
@@ -98,6 +107,9 @@ function randomCard() {
 
 function closePopup() {
   popup.classList.add("d-none");
+  savePopup.classList.add("d-none");
+  loadPopup.classList.add("d-none");
+
   body.style.overflow = "";
 }
 
@@ -106,14 +118,50 @@ function openPopup() {
   popup.classList.remove("d-none");
 }
 
+function openSavePopup() {
+  savePopup.classList.remove("d-none");
+}
+
+function openLoadPopup() {
+  loadPopup.classList.remove("d-none");
+
+  let localLibrary;
+
+  if (localStorage.getItem("library") === null) {
+    localLibrary = [];
+  } else {
+    localLibrary = JSON.parse(localStorage.getItem("library"));
+  }
+
+  localLibrary.forEach((item) => {
+    console.log(item.thumbnail);
+
+    const cardDiv = document.createElement("div");
+    const card = document.createElement("img");
+
+    // Creating cards
+    cardDiv.classList.add("picked-card");
+    cardDiv.classList.add("card");
+    cardDiv.appendChild(card);
+
+    card.src = `./cards/${cards.cards[item.thumbnail].img}`;
+
+    loadCardWrp.appendChild(cardDiv);
+  });
+}
+
 function reload() {
   location.reload();
 }
 
 function saveLayout() {
+  const layoutName = savePopup.querySelector(".input-text").value;
+  console.log(layoutName);
+
   layoutObj = {
-    name: "yolo",
+    name: layoutName,
     cards: pickedCards,
+    thumbnail: pickedCards[0],
   };
 
   let localLibrary;
@@ -126,17 +174,30 @@ function saveLayout() {
 
   localLibrary.push(layoutObj);
   localStorage.setItem("library", JSON.stringify(localLibrary));
+
+  closePopup();
 }
+
+function loadLayout() {}
 
 //Event listeners
 deckCard.forEach((card) => {
   card.addEventListener("click", randomCard);
 });
 
-exit.addEventListener("click", closePopup);
+exit.forEach((instace) => {
+  instace.addEventListener("click", closePopup);
+});
+
+// exit.addEventListener("click", closePopup);
 exitBtn.addEventListener("click", closePopup);
 
 shuffleBtn.addEventListener("click", reload);
-saveBtn.addEventListener("click", saveLayout);
 
+saveBtn.addEventListener("click", openSavePopup);
+saveLayoutBtn.addEventListener("click", saveLayout);
+loadBtn.addEventListener("click", openLoadPopup);
+loadLayoutBtn.addEventListener("click", loadLayout);
+
+// Clear local storage
 // localStorage.clear();
