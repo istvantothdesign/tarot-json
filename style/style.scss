@@ -328,43 +328,35 @@ input {
   max-width: 1400px;
   align-items: flex-start;
   justify-content: flex-start;
-}
+  .save-popup__wrp.load {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
 
-.save-popup__wrp.load {
-  width: 100%;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
+    .load-card-wrp {
+      display: inline-block;
+      gap: 20px;
+      @include flex(row, flex-start, flex-start);
+      flex-wrap: wrap;
+      .load-card {
+        padding: 10px 20px;
+        border-radius: 10px;
 
-.load-cards-wrp {
-  display: block;
+        max-width: 240px;
+        background: rgb(239, 239, 239);
+        @include flex(column, flex-start, flex-start);
+        width: 100%;
 
-  columns: 2;
-
-  &::before {
-    content: " ";
-    display: table;
-    grid-column-start: 1;
-    grid-row-start: 1;
-    grid-column-end: 2;
-    grid-row-end: 2;
-  }
-  &::after {
-    clear: both;
-    content: " ";
-    display: table;
-    grid-column-start: 1;
-    grid-row-start: 1;
-    grid-column-end: 2;
-    grid-row-end: 2;
-  }
-  .load-card {
-    background: grey;
-    width: 230px;
+        .card {
+          margin: 0 0 10px 0;
+        }
+      }
+    }
   }
 }
 
 .save-popup.load {
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
+  padding: 80px 20px 0px 20px;
 }
