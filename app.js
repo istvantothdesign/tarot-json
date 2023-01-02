@@ -25,6 +25,9 @@ const loadBtn = document.querySelector(".load-layout");
 const loadLayoutBtn = document.querySelector(
   ".save-popup.load .button.primary"
 );
+const deleteLayoutBtn = document.querySelector(
+  ".save-popup.load .button.secondary"
+);
 const savePopup = document.querySelector(".save-popup");
 const loadPopup = document.querySelector(".save-popup.load");
 const loadCardWrp = document.querySelector(".load-card-wrp");
@@ -134,9 +137,8 @@ function openLoadPopup() {
   }
 
   localLibrary.forEach((item) => {
-    console.log(item.thumbnail);
-
     // Variables
+    const cardIndex = localLibrary.indexOf(item);
     const cardDiv = document.createElement("div");
     const card = document.createElement("img");
     const loadCard = document.createElement("div");
@@ -147,6 +149,7 @@ function openLoadPopup() {
     cardDiv.classList.add("picked-card");
     cardDiv.classList.add("card");
     loadCard.classList.add("load-card");
+    loadCard.id = cardIndex;
     loadCardP.classList.add("save-date");
     loadCardH3.classList.add("layout-name");
 
@@ -244,7 +247,77 @@ function saveLayout() {
   closePopup();
 }
 
-function loadLayout() {}
+function loadLayout() {
+  // Checking for library
+  if (localStorage.getItem("library") === null) {
+    localLibrary = [];
+  } else {
+    localLibrary = JSON.parse(localStorage.getItem("library"));
+  }
+
+  // Variables
+  const selectedCard = document.querySelector(".load-card.selected");
+  const selectedLayout = localLibrary[selectedCard.id].cards;
+  const selectedReverse = localLibrary[selectedCard.id].reverse;
+
+  let counter = 1;
+  let cardCounter = 0;
+
+  // Creating cards
+  while (counter <= selectedLayout.length) {
+    const cardDiv = document.createElement("div");
+    const card = document.createElement("img");
+
+    cardDiv.classList.add("picked-card");
+    cardDiv.classList.add("card");
+    cardDiv.appendChild(card);
+
+    cardDiv.firstElementChild.src = `./cards/${
+      cards.cards[selectedLayout[cardCounter]].img
+    }`;
+
+    // Reverse
+    if (selectedReverse) {
+      cardDiv.classList.add("reversed");
+      popupCard.classList.add("reversed");
+      cardName.classList.add("reversed-text");
+    } else {
+      cardDiv.classList.remove("reversed");
+      popupCard.classList.remove("reversed");
+      cardName.classList.remove("reversed-text");
+    }
+
+    // // Setting card id
+    cardDiv.setAttribute("id", `${selectedLayout[cardCounter]}`);
+
+    // Adding card to wrapper
+    pickedCardsWrp.appendChild(cardDiv);
+
+    // Adding popup function
+    cardDiv.addEventListener("click", function () {
+      console.log(cardDiv.id);
+      popup.classList.remove("d-none");
+      body.style.overflow = "hidden";
+      popupCard.src = `./cards/${cards.cards[cardDiv.id].img}`;
+      cardName.innerHTML = `${cards.cards[cardDiv.id].name}`;
+      if (cardDiv.classList.contains("reversed")) {
+        popupCard.classList.add("reversed");
+        cardName.classList.add("reversed-text");
+      } else {
+        popupCard.classList.remove("reversed");
+        cardName.classList.remove("reversed-text");
+      }
+    });
+
+    // Removing cards from card row
+    secondRow.removeChild(secondRow.lastElementChild);
+
+    pickedCards.push(selectedLayout[cardCounter]);
+
+    counter++;
+    cardCounter++;
+  }
+}
 
 //Event listeners
 deckCard.forEach((card) => {
