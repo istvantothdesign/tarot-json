@@ -126,6 +126,11 @@ function openSavePopup() {
 }
 
 function openLoadPopup() {
+  // Clearing previously loaded layouts
+  while (loadCardWrp.lastElementChild) {
+    loadCardWrp.removeChild(loadCardWrp.lastElementChild);
+  }
+
   loadPopup.classList.remove("d-none");
 
   let localLibrary;
@@ -255,6 +260,11 @@ function loadLayout() {
     localLibrary = JSON.parse(localStorage.getItem("library"));
   }
 
+  // Clearing existing cards on table
+  while (pickedCardsWrp.lastElementChild) {
+    pickedCardsWrp.removeChild(pickedCardsWrp.lastElementChild);
+  }
+
   // Variables
   const selectedCard = document.querySelector(".load-card.selected");
   const selectedLayout = localLibrary[selectedCard.id].cards;
@@ -317,6 +327,40 @@ function loadLayout() {
     counter++;
     cardCounter++;
   }
+
+  loadPopup.classList.add("d-none");
+}
+
+function deleteLayout() {
+  // Checking for library
+  if (localStorage.getItem("library") === null) {
+    localLibrary = [];
+  } else {
+    localLibrary = JSON.parse(localStorage.getItem("library"));
+  }
+
+  // Removing item from localLibrary
+  const selectedCard = document.querySelector(".load-card.selected");
+  const selectedCardID = document.querySelector(".load-card.selected").id;
+  // const selectedLayout = localLibrary[selectedCard.id];
+
+  console.log(localLibrary);
+
+  const index = selectedCardID;
+
+  if (index > -1) {
+    // only splice array when item is found
+    localLibrary.splice(index, 1); // 2nd parameter means remove one item only
+  }
+
+  console.log(localLibrary);
+
+  // Removing card from DOM
+  selectedCard.remove();
+
+  // Update local storage
+  localStorage.clear();
+  localStorage.setItem("library", JSON.stringify(localLibrary));
 }
 
 //Event listeners
@@ -337,6 +381,8 @@ saveBtn.addEventListener("click", openSavePopup);
 saveLayoutBtn.addEventListener("click", saveLayout);
 loadBtn.addEventListener("click", openLoadPopup);
 loadLayoutBtn.addEventListener("click", loadLayout);
+
+deleteLayoutBtn.addEventListener("click", deleteLayout);
 
 // Clear local storage
 // localStorage.clear();
