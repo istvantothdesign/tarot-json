@@ -382,6 +382,7 @@ input {
 .save-popup__ctn.load .save-popup__wrp.load .load-card-wrp .load-card {
   padding: 10px 20px;
   border-radius: 10px;
+  border: 3px solid transparent;
   max-width: 240px;
   background: rgb(239, 239, 239);
   display: flex;
@@ -390,8 +391,19 @@ input {
   align-items: flex-start;
   width: 100%;
 }
+.save-popup__ctn.load .save-popup__wrp.load .load-card-wrp .load-card:hover {
+  background: rgb(231, 231, 231);
+}
 .save-popup__ctn.load .save-popup__wrp.load .load-card-wrp .load-card .card {
   margin: 0 0 10px 0;
+}
+.save-popup__ctn.load .save-popup__wrp.load .load-card-wrp .load-card .card:hover :hover {
+  border: 3px solid black !important;
+  filter: none !important;
+}
+.save-popup__ctn.load .save-popup__wrp.load .load-card-wrp .load-card.selected {
+  border: 3px solid black;
+  background: rgb(231, 231, 231);
 }
 
 .save-popup.load {

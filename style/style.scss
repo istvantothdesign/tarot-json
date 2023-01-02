@@ -341,15 +341,29 @@ input {
       .load-card {
         padding: 10px 20px;
         border-radius: 10px;
+        border: 3px solid transparent;
 
         max-width: 240px;
         background: rgb(239, 239, 239);
         @include flex(column, flex-start, flex-start);
         width: 100%;
+        &:hover {
+          background: rgb(231, 231, 231);
+        }
 
         .card {
           margin: 0 0 10px 0;
+          &:hover {
+            :hover {
+              border: 3px solid black !important;
+              filter: none !important;
+            }
+          }
         }
+      }
+      .load-card.selected {
+        border: 3px solid black;
+        background: rgb(231, 231, 231);
       }
     }
   }

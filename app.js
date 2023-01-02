@@ -136,17 +136,50 @@ function openLoadPopup() {
   localLibrary.forEach((item) => {
     console.log(item.thumbnail);
 
+    // Variables
     const cardDiv = document.createElement("div");
     const card = document.createElement("img");
+    const loadCard = document.createElement("div");
+    const loadCardP = document.createElement("p");
+    const loadCardH3 = document.createElement("h3");
 
-    // Creating cards
+    //  Adding classes
     cardDiv.classList.add("picked-card");
     cardDiv.classList.add("card");
-    cardDiv.appendChild(card);
+    loadCard.classList.add("load-card");
+    loadCardP.classList.add("save-date");
+    loadCardH3.classList.add("layout-name");
 
+    // Adding content
     card.src = `./cards/${cards.cards[item.thumbnail].img}`;
+    loadCardP.innerText = item.date;
+    loadCardH3.innerText = item.name;
 
-    loadCardWrp.appendChild(cardDiv);
+    // Appending children
+    cardDiv.appendChild(card);
+    loadCard.appendChild(cardDiv);
+    loadCard.appendChild(loadCardP);
+    loadCard.appendChild(loadCardH3);
+    loadCardWrp.appendChild(loadCard);
+
+    // Reverso
+    if (item.reverse) {
+      cardDiv.classList.add("reversed");
+    }
+  });
+
+  const loadCards = document.querySelectorAll(".load-card");
+  loadCards.forEach((instace) => {
+    instace.addEventListener("click", () => {
+      let selectCheck = document.querySelector(".load-card.selected");
+
+      if (selectCheck === null) {
+        instace.classList.add("selected");
+      } else {
+        selectCheck.classList.remove("selected");
+        instace.classList.add("selected");
+      }
+    });
   });
 }
 
@@ -156,12 +189,45 @@ function reload() {
 
 function saveLayout() {
   const layoutName = savePopup.querySelector(".input-text").value;
-  console.log(layoutName);
+
+  // Adding current date
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, "0");
+  let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  let yyyy = today.getFullYear();
+  let reverse;
+
+  today = dd + "/" + monthNames[today.getMonth()] + "/" + yyyy;
+
+  const firstCard = document.querySelectorAll(".picked-cards .picked-card")[0];
+
+  if (firstCard.classList.contains("reversed")) {
+    reverse = true;
+  } else {
+    reverse = false;
+  }
 
   layoutObj = {
     name: layoutName,
     cards: pickedCards,
     thumbnail: pickedCards[0],
+    date: today,
+    reverse: reverse,
   };
 
   let localLibrary;
